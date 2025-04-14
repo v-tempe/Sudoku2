@@ -2,6 +2,7 @@ def main():
     import pygame
 
     import constants
+    import colors
 
     pygame.init()
     display = pygame.display.set_mode((constants.WIDTH, constants.HEIGHT))
@@ -14,7 +15,7 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
-        display.fill((0, 0, 0))
+        display.fill(colors.BLACK)
 
         pygame.display.flip()
 
