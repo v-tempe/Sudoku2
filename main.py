@@ -1,9 +1,11 @@
 def main():
     import pygame
 
+    import constants
+
     pygame.init()
-    display = pygame.display.set_mode((480, 480))
-    pygame.display.set_caption("Sudoku")
+    display = pygame.display.set_mode((constants.WIDTH, constants.HEIGHT))
+    pygame.display.set_caption(constants.GAME_NAME)
     clock = pygame.time.Clock()
 
     running = True
@@ -16,7 +18,7 @@ def main():
 
         pygame.display.flip()
 
-        clock.tick(30)
+        clock.tick(constants.FPS)
 
 
 if __name__ == "__main__":

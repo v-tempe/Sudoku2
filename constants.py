@@ -1,0 +1,6 @@
+WIDTH = 900
+HEIGHT = 900
+
+FPS = 30
+
+GAME_NAME = "Sudoku"
