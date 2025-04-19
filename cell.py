@@ -10,8 +10,12 @@ class Cell(ABC):
     def true_value(self):
         return self._true_value
 
+    @property
+    def announced_value(self):
+        raise TypeError(f"Method 'announced_value' must be overwritten in subclass")
+
     def is_filled(self) -> bool:
-        raise TypeError(f"Method {Cell.is_filled.__name__} must be overwritten in subclass")
+        raise TypeError(f"Method 'is_filled' must be overwritten in subclass")
 
     def __repr__(self):
         return f"Cell({self._true_value})"
