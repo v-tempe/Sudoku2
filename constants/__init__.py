@@ -1,3 +1,6 @@
+from . import actions
+
+
 WIDTH = 900
 HEIGHT = 900
 
