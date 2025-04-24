@@ -18,7 +18,7 @@ def main():
         def process_set_value():
             nonlocal chosen_cell
             if chosen_cell:
-                chosen_cell.supply_value(action['value'])
+                chosen_cell.supply_value(int(action['value']))
 
         def process_exit():
             nonlocal running
@@ -33,20 +33,30 @@ def main():
                                  f"nor {constants.actions.keywords.INCORRECT_ACTION} was provided")
 
             command = action[constants.actions.keywords.ACTION]
-            print(f"{command}")
             if command == constants.actions.commands.CHOOSE:
                 process_choose()
             elif command == constants.actions.commands.SET_VALUE:
                 process_set_value()
             elif command == constants.actions.commands.EXIT:
                 process_exit()
+            sudoku.print()
+
+    def process_game_finishing():
+        print(f"Sudoku is solved! Congratulations!")
 
     sudoku = Sudoku()
 
     chosen_cell: Optional[CellManager] = None
 
+    sudoku.print()
     running = True
     while running:
+        is_sudoku_solved = sudoku.is_solved()
+        if is_sudoku_solved:
+            process_game_finishing()
+            running = False
+            continue
+
         actions: list[dict[str: str]] = list()
         raw_user_response = user_interface.text.get_raw_text_from_stdin(constants.actions.INPUT_PROMPT)
         next_action: dict[str: str] = user_interface.text.process_text_user_response(raw_user_response)

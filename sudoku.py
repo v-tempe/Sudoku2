@@ -16,7 +16,7 @@ class Sudoku:
         def weed_grid():
             from random import randint
 
-            amount_left_cells = 50
+            amount_left_cells = 79
             amount_discarded_cells = 81 - amount_left_cells
             coors_discarded_cells: set[tuple[int, int]] = set()
             for _ in range(amount_discarded_cells):
@@ -25,7 +25,7 @@ class Sudoku:
                     self._replace_black_cell_with_blue_cell(coors_next)
                     coors_discarded_cells.add(coors_next)
 
-        self._grid: dict[tuple[int, int]: Cell] = {(i // 9, i % 9): BlackCell(None) for i in range(81)}
+        self._grid: dict[tuple[int, int]: Cell] = {(i % 9, i // 9): BlackCell(None) for i in range(81)}
 
         fill_grid()
         weed_grid()
@@ -36,8 +36,8 @@ class Sudoku:
         self._grid[coors] = new_cell
 
     def print(self):
-        for j in range(9):
-            for i in range(9):
+        for i in range(9):
+            for j in range(9):
                 next_cell = self._grid[(j, i)]
                 print(next_cell.announced_value if next_cell.is_filled() else '_', '', end='')
             print()
@@ -53,3 +53,6 @@ class Sudoku:
             return CellManager(target_cell)
         else:
             return None
+
+    def is_solved(self) -> bool:
+        return all(map(lambda cell: cell.is_filled_correctly(), self._grid.values()))

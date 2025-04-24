@@ -24,6 +24,9 @@ class BlueCell(Cell):
     def is_filled(self) -> bool:
         return self._supplied_value is not None
 
+    def is_filled_correctly(self):
+        return self._true_value == self._supplied_value
+
 
 class CellManager:
     """
@@ -42,3 +45,4 @@ class CellManager:
 
     def supply_value(self, value):
         self._cell.supplied_value = value
+        print(f"{self._cell.supplied_value=}")

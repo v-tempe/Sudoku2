@@ -17,3 +17,6 @@ class BlackCell(Cell):
 
     def is_filled(self) -> bool:
         return self._true_value is not None
+
+    def is_filled_correctly(self):
+        return True
