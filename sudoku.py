@@ -1,6 +1,8 @@
+from typing import Optional
+
 from cell import Cell
 from black_cell import BlackCell
-from blue_cell import BlueCell
+from blue_cell import BlueCell, CellManager
 
 
 class Sudoku:
@@ -39,3 +41,15 @@ class Sudoku:
                 next_cell = self._grid[(j, i)]
                 print(next_cell.announced_value if next_cell.is_filled() else '_', '', end='')
             print()
+
+    def get_cell_manager(self, x, y) -> Optional[CellManager]:
+        if not (0 <= x <= 8):
+            raise ValueError(f"'x' value must be an integer in [0; 8]; got {x}")
+        if not (0 <= y <= 8):
+            raise ValueError(f"'y' value must be an integer in [0; 8]; got {y}")
+
+        target_cell = self._grid[(x, y)]
+        if isinstance(target_cell, BlueCell):
+            return CellManager(target_cell)
+        else:
+            return None

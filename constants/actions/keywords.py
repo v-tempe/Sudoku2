@@ -1,0 +1,5 @@
+ACTION = "action"
+INCORRECT_ACTION = "incorrect_action"
+X = "x"
+Y = "y"
+VALUE = "value"

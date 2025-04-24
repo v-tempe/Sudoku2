@@ -19,7 +19,7 @@ def process_text_user_response(user_raw_text: str) -> dict[str: str]:
     action = user_response.pop(0)
     incorrect_action: dict = {"incorrect_action": action}
 
-    if action == constants.actions.CHOOSE:
+    if action == constants.actions.commands.CHOOSE:
         if len(user_response) < 2:
             return incorrect_action
         result["action"] = action
@@ -34,7 +34,7 @@ def process_text_user_response(user_raw_text: str) -> dict[str: str]:
             return incorrect_action
         result["y"] = coor_y
 
-    elif action == constants.actions.SET_VALUE:
+    elif action == constants.actions.commands.SET_VALUE:
         if len(user_response) < 1:
             return incorrect_action
         result["action"] = action
@@ -43,7 +43,7 @@ def process_text_user_response(user_raw_text: str) -> dict[str: str]:
             return incorrect_action
         result["value"] = cell_value
 
-    elif action == constants.actions.EXIT:
+    elif action == constants.actions.commands.EXIT:
         result["action"] = action
 
     else:
