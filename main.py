@@ -77,10 +77,9 @@ def main():
                                constants.actions.keywords.X: coor_x,
                                constants.actions.keywords.Y: coor_y}
             elif event.type == pygame.KEYDOWN:
-                key_char = event.unicode
-                print(f"{key_char=}")
+                key_char: str = event.unicode
 
-                if int(key_char) in range(1, 10):
+                if key_char.isdigit() and int(key_char) in range(1, 10):
                     next_action = {constants.actions.keywords.ACTION: constants.actions.commands.SET_VALUE,
                                    constants.actions.keywords.VALUE: key_char}
             elif event.type == pygame.QUIT:
