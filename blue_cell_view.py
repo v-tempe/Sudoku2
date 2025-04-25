@@ -22,6 +22,7 @@ class BlueCellView(pygame.sprite.Sprite):
                             j * BlueCellView.size + BlueCellView.size // 2)
 
     def draw(self, surf: pygame.surface.Surface, value: Optional[int]):
+        self.image.fill(BlueCellView.STANDARD_COLOUR)
         if value is not None:
             draw_text(self.image, str(value), int(self.size * 0.8), self.size // 2, self.size // 2,
                       colors.BLUE)

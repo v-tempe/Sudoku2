@@ -20,6 +20,7 @@ class BlackCellView(pygame.sprite.Sprite):
                             j * BlackCellView.size + BlackCellView.size // 2)
 
     def draw(self, surf: pygame.surface.Surface, value: int):
+        self.image.fill(BlackCellView.STANDARD_COLOUR)
         draw_text(self.image, str(value), int(self.size * 0.9), self.size // 2, self.size // 2,
                   colors.BLACK)
         surf.blit(self.image, self.rect.topleft)
