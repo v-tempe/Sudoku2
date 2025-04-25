@@ -1,13 +1,14 @@
 from typing import Optional
 
 from cell import Cell
+from blue_cell_view import BlueCellView
 
 
 class BlueCell(Cell):
-    def __init__(self, true_value: Optional[int]):
-        Cell.__init__(self, true_value)
-
+    def __init__(self, true_value: Optional[int], i: int, j: int):
+        Cell.__init__(self, true_value, i, j)
         self._supplied_value: Optional[int] = None
+        self._view = BlueCellView(i, j)
 
     @property
     def supplied_value(self):
@@ -26,6 +27,9 @@ class BlueCell(Cell):
 
     def is_filled_correctly(self):
         return self._true_value == self._supplied_value
+
+    def draw(self, surf):
+        self._view.draw(surf, self.supplied_value)
 
 
 class CellManager:

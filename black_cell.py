@@ -1,11 +1,13 @@
 from typing import Optional
 
 from cell import Cell
+from black_cell_view import BlackCellView
 
 
 class BlackCell(Cell):
-    def __init__(self, true_value: Optional[int]):
-        Cell.__init__(self, true_value)
+    def __init__(self, true_value: Optional[int], i: int, j: int):
+        Cell.__init__(self, true_value, i, j)
+        self._view = BlackCellView(i, j)
 
     @Cell.true_value.setter
     def true_value(self, new_value):
@@ -20,3 +22,6 @@ class BlackCell(Cell):
 
     def is_filled_correctly(self):
         return True
+
+    def draw(self, surf):
+        self._view.draw(surf, self.true_value)

@@ -3,8 +3,21 @@ from typing import Optional
 
 
 class Cell(ABC):
-    def __init__(self, true_value: Optional[int]):
+    size = 100
+    border_padding = 1
+    
+    def __init__(self, true_value: Optional[int], i: int, j: int):
         self._true_value: int = true_value
+        self._i = i
+        self._j = j
+
+    @property
+    def i(self):
+        return self._i
+
+    @property
+    def j(self):
+        return self._j
 
     @property
     def true_value(self):
@@ -25,3 +38,6 @@ class Cell(ABC):
 
     def __str__(self):
         return self.__repr__()
+
+    def draw(self, surf):
+        raise TypeError(f"Method 'draw' must be overwritten in subclass")

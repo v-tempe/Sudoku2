@@ -16,23 +16,27 @@ class Sudoku:
         def weed_grid():
             from random import randint
 
-            amount_left_cells = 79
+            amount_left_cells = 70
             amount_discarded_cells = 81 - amount_left_cells
             coors_discarded_cells: set[tuple[int, int]] = set()
             for _ in range(amount_discarded_cells):
-                coors_next: tuple[int, int] = randint(0, 8), randint(0, 8)
+                coors_next: tuple[int, int] = (randint(0, 8),
+                                               randint(0, 8))
                 if coors_next not in coors_discarded_cells:
                     self._replace_black_cell_with_blue_cell(coors_next)
                     coors_discarded_cells.add(coors_next)
 
-        self._grid: dict[tuple[int, int]: Cell] = {(i % 9, i // 9): BlackCell(None) for i in range(81)}
+        self._grid: dict[tuple[int, int]: Cell] = {
+            (i % 9, i // 9):
+            BlackCell(None, i % 9, i // 9) for i in range(81)
+        }
 
         fill_grid()
         weed_grid()
 
     def _replace_black_cell_with_blue_cell(self, coors: tuple[int, int]):
         old_cell = self._grid[coors]
-        new_cell = BlueCell(old_cell.true_value)
+        new_cell = BlueCell(old_cell.true_value, old_cell.i, old_cell.j)
         self._grid[coors] = new_cell
 
     def print(self):
@@ -56,3 +60,16 @@ class Sudoku:
 
     def is_solved(self) -> bool:
         return all(map(lambda cell: cell.is_filled_correctly(), self._grid.values()))
+
+    def draw(self, surf):
+        for coors in self._grid:
+            cell = self._grid[coors]
+            cell.draw(surf)
+
+    @staticmethod
+    def to_cell_dimensionality(coors: tuple[int, int]) -> tuple[int, int]:
+        return coors[0] // Cell.size, coors[1] // Cell.size
+
+    @staticmethod
+    def to_display_dimensionality(coors: tuple[int, int]) -> tuple[int, int]:
+        return coors[0] * Cell.size + Cell.size // 2, coors[1] * Cell.size + Cell.size // 2
