@@ -16,7 +16,7 @@ def main():
         def process_choose():
             nonlocal chosen_cell
             chosen_cell = sudoku.get_cell_manager(int(action['x']), int(action['y']))
-            print(f"{chosen_cell=}")
+            chosen_cell.activate()
 
         def process_set_value():
             nonlocal chosen_cell

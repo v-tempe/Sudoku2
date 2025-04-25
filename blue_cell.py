@@ -9,6 +9,7 @@ class BlueCell(Cell):
         Cell.__init__(self, true_value, i, j)
         self._supplied_value: Optional[int] = None
         self._view = BlueCellView(i, j)
+        self._is_active = False
 
     @property
     def supplied_value(self):
@@ -29,7 +30,13 @@ class BlueCell(Cell):
         return self._true_value == self._supplied_value
 
     def draw(self, surf):
-        self._view.draw(surf, self.supplied_value)
+        self._view.draw(surf, self.supplied_value, self._is_active)
+
+    def activate(self):
+        self._is_active = True
+
+    def deactivate(self):
+        self._is_active = False
 
 
 class CellManager:
@@ -37,7 +44,10 @@ class CellManager:
     A public API for a 'Cell' class
     """
     def __init__(self, cell: BlueCell):
-        self._cell = cell
+        self._cell: BlueCell = cell
+
+    def __del__(self):
+        self.deactivate()
 
     @property
     def true_value(self):
@@ -49,4 +59,9 @@ class CellManager:
 
     def supply_value(self, value):
         self._cell.supplied_value = value
-        print(f"{self._cell.supplied_value=}")
+
+    def activate(self):
+        self._cell.activate()
+
+    def deactivate(self):
+        self._cell.deactivate()
