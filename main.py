@@ -3,6 +3,7 @@ from typing import Optional
 import colors
 import constants.actions
 from blue_cell import CellManager
+from drawable import Drawable
 
 
 def main():
@@ -54,6 +55,7 @@ def main():
     sudoku = Sudoku()
 
     chosen_cell: Optional[CellManager] = None
+    active_window: Drawable = sudoku
 
     running = True
     while running:
@@ -92,7 +94,7 @@ def main():
         process_actions()
 
         display.fill(colors.BLACK)
-        sudoku.draw(display)
+        active_window.draw(display)
 
         pygame.display.flip()
 
