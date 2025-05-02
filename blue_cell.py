@@ -1,10 +1,12 @@
 from typing import Optional
+import pygame
 
 from cell import Cell
 from blue_cell_view import BlueCellView
+from drawable import Drawable
 
 
-class BlueCell(Cell):
+class BlueCell(Cell, Drawable):
     def __init__(self, true_value: Optional[int], i: int, j: int):
         Cell.__init__(self, true_value, i, j)
         self._supplied_value: Optional[int] = None
@@ -29,7 +31,7 @@ class BlueCell(Cell):
     def is_filled_correctly(self):
         return self._true_value == self._supplied_value
 
-    def draw(self, surf):
+    def draw(self, surf: pygame.surface.Surface):
         self._view.draw(surf, self.supplied_value, self._is_active)
 
     def activate(self):

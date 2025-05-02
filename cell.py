@@ -38,6 +38,3 @@ class Cell(ABC):
 
     def __str__(self):
         return self.__repr__()
-
-    def draw(self, surf):
-        raise TypeError(f"Method 'draw' must be overwritten in subclass")

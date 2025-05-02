@@ -1,11 +1,15 @@
 from typing import Optional
+import pygame
 
+import constants
+import colors
 from cell import Cell
 from black_cell import BlackCell
 from blue_cell import BlueCell, CellManager
+from drawable import Drawable
 
 
-class Sudoku:
+class Sudoku(Drawable):
     def __init__(self):
         def fill_grid():
             for j in range(9):
@@ -30,6 +34,7 @@ class Sudoku:
             (i % 9, i // 9):
             BlackCell(None, i % 9, i // 9) for i in range(81)
         }
+        self._view = SudokuView()
 
         fill_grid()
         weed_grid()
@@ -61,10 +66,11 @@ class Sudoku:
     def is_solved(self) -> bool:
         return all(map(lambda cell: cell.is_filled_correctly(), self._grid.values()))
 
-    def draw(self, surf):
+    def draw(self, surf: pygame.surface.Surface):
         for coors in self._grid:
             cell = self._grid[coors]
             cell.draw(surf)
+        self._view.draw(surf)
 
     @staticmethod
     def to_cell_dimensionality(coors: tuple[int, int]) -> tuple[int, int]:
@@ -73,3 +79,38 @@ class Sudoku:
     @staticmethod
     def to_display_dimensionality(coors: tuple[int, int]) -> tuple[int, int]:
         return coors[0] * Cell.size + Cell.size // 2, coors[1] * Cell.size + Cell.size // 2
+
+
+class SudokuView:
+    def __init__(self):
+        self.borders = pygame.sprite.Group()
+        self.make_borders()
+
+    def make_borders(self):
+        class Border(pygame.sprite.Sprite):
+            def __init__(self, kind, x_or_y, width: int = 2):
+                pygame.sprite.Sprite.__init__(self)
+                if kind == 'v':
+                    self.image = pygame.Surface((width, constants.HEIGHT))
+                elif kind == 'h':
+                    self.image = pygame.Surface((constants.WIDTH, width))
+                else:
+                    raise ValueError("the 'kind' value must be 'v' or 'h'")
+                self.image.fill(colors.BLACK)
+                self.rect = self.image.get_rect()
+                if kind == 'v':
+                    self.rect.center = (x_or_y, constants.HEIGHT // 2)
+                elif kind == 'h':
+                    self.rect.center = (constants.WIDTH // 2, x_or_y)
+                else:
+                    raise ValueError("the 'kind' value must be 'v' or 'h'")
+
+        for i in range(1, 9):
+            new_border = Border('v', i * Cell.size, 3 + (i % 3 == 0) * 3)
+            new_border.add(self.borders)
+        for j in range(1, 9):
+            new_border = Border('h', j * Cell.size, 3 + (j % 3 == 0) * 3)
+            new_border.add(self.borders)
+
+    def draw(self, surf: pygame.surface.Surface):
+        self.borders.draw(surf)
