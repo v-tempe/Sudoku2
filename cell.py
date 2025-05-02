@@ -30,7 +30,7 @@ class Cell(ABC):
     def is_filled(self) -> bool:
         raise TypeError(f"Method 'is_filled' must be overwritten in subclass")
 
-    def is_filled_correctly(self):
+    def is_filled_correctly(self) -> bool:
         raise TypeError(f"Method 'is_filled_correctly' must be overwritten in subclass")
 
     def __repr__(self):
