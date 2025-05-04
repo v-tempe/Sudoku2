@@ -12,9 +12,6 @@ def main():
     from sudoku_activity import SudokuActivity
     from menu import Menu
 
-    def process_game_finishing():
-        print(f"Sudoku is solved! Congratulations!")
-
     pygame.init()
     display = pygame.display.set_mode((constants.WIDTH, constants.HEIGHT))
     pygame.display.set_caption(constants.GAME_NAME)
