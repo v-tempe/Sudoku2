@@ -1,5 +1,6 @@
 from . import actions
 from . import activities_names
+from . import menu
 
 
 WIDTH = 900

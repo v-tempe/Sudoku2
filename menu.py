@@ -41,11 +41,11 @@ class Menu(Activity, Drawable):
         for inscription in self._inscriptions:
             inscription: dict
             draw_text(self._view.image,
-                      inscription["text"],
-                      inscription["size"],
-                      inscription["x"],
-                      inscription["y"],
-                      inscription["color"])
+                      inscription[constants.menu.keywords.TEXT],
+                      inscription[constants.menu.keywords.SIZE],
+                      inscription[constants.menu.keywords.X],
+                      inscription[constants.menu.keywords.Y],
+                      inscription[constants.menu.keywords.COLOR])
         surf.blit(self._view.image, (0, 0))
 
 
