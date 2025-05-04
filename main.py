@@ -10,6 +10,7 @@ def main():
     import pygame
 
     from sudoku_activity import SudokuActivity
+    from menu import Menu
 
     def process_game_finishing():
         print(f"Sudoku is solved! Congratulations!")
@@ -19,7 +20,8 @@ def main():
     pygame.display.set_caption(constants.GAME_NAME)
     clock = pygame.time.Clock()
 
-    sudoku_activity = SudokuActivity()
+    game_finish_activity = Menu([])
+    sudoku_activity = SudokuActivity({constants.activities_names.GAME_FINISH: game_finish_activity})
 
     next_active_activity: Activity = sudoku_activity
 

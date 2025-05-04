@@ -10,4 +10,4 @@ class Activity:
         raise TypeError(f"Method 'get_view' must be overwritten in implementation")
 
     def update(self):
-        pass
+        raise TypeError(f"Method 'update' must be overwritten in implementation")

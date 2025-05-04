@@ -38,7 +38,7 @@ class SudokuActivity(Activity):
                 self._chosen_cell.supply_value(int(action['value']))
 
             if self._sudoku.is_solved():
-                value_for_return = None
+                value_for_return = self._known_activities[constants.activities_names.GAME_FINISH]
 
         def process_exit():
             nonlocal value_for_return

@@ -1,2 +1,2 @@
 SUDOKU = "sudoku"
-EXIT = "exit"
+GAME_FINISH = "game_finish"
