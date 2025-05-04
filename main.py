@@ -1,7 +1,8 @@
 from typing import Optional
 
 import colors
-import constants.actions
+import constants
+import resourses
 from blue_cell import CellManager
 from activity import Activity
 
@@ -17,7 +18,7 @@ def main():
     pygame.display.set_caption(constants.GAME_NAME)
     clock = pygame.time.Clock()
 
-    game_finish_activity = Menu([])
+    game_finish_activity = Menu([resourses.menu.game_finish.HEADING.copy()])
     sudoku_activity = SudokuActivity({constants.activities_names.GAME_FINISH: game_finish_activity})
 
     next_active_activity: Activity = sudoku_activity
